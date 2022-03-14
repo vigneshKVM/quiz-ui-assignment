@@ -15,6 +15,7 @@ import { AiFillDelete } from "react-icons/ai";
 // Components
 import Button from "../../components/button/Button";
 import Input from "../../components/input/Input";
+import TextArea from "../../components/textArea/TextArea";
 
 // Redux
 import * as AuthActions from "../../redux/auth/auth.actions";
@@ -120,16 +121,18 @@ const AddQuiz = () => {
                 {getQuestionHeading(question, index)}
               </AddQuizHeading>
               <AddQuizDeleteButton
-                onClick={() =>
-                  dispatch(AuthActions.deleteQuestion(question.questionId))
-                }
+                onClick={() => {
+                  if (activeQuestion.questionId === question.questionId)
+                    setActiveQuestion("");
+                  dispatch(AuthActions.deleteQuestion(question.questionId));
+                }}
               >
                 <AiFillDelete />
               </AddQuizDeleteButton>
             </div>
           );
         })}
-        <br/>
+        <br />
         {screenSize.width >= 800 ? (
           <Button
             onClick={() =>
@@ -154,7 +157,9 @@ const AddQuiz = () => {
         {activeQuestion && (
           <>
             <AddQuizHeading active>Design Question</AddQuizHeading>
-            <Input
+            <TextArea
+              rows="6"
+              type="text"
               value={activeQuestion.value}
               onChange={(e) =>
                 setActiveQuestion({ ...activeQuestion, value: e.target.value })
@@ -174,7 +179,6 @@ const AddQuiz = () => {
                 Upload Image
                 <Input
                   type="file"
-                  value={activeQuestion.value}
                   onChange={(e) => handleFileUpload(e)}
                   onBlur={(e) =>
                     handleUpdateQuestion("question", e.target.value)
@@ -183,7 +187,7 @@ const AddQuiz = () => {
                 />
               </label>
             </div>
-            <img src={selectedFile} style={{width: '300px'}} />
+            <img src={selectedFile} style={{ width: "300px" }} />
             {Object.values(activeQuestion?.options || {})?.map(
               (option, index) => {
                 return (
@@ -241,7 +245,7 @@ const AddQuiz = () => {
                 );
               }
             )}
-            <br/>
+            <br />
             {Object.keys(activeQuestion.options).length < 6 && (
               <Button
                 onClick={() => {
@@ -265,6 +269,11 @@ const AddQuiz = () => {
               </Button>
             )}
           </>
+        )}
+        {!activeQuestion && (
+          <div style={{ color: "red", fontSize: "20px" }}>
+            Please Select a Question to Edit it.
+          </div>
         )}
       </AddQuizContent>
     </AddQuizContainer>
