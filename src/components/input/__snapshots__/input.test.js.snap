@@ -1,32 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button: match snapshot 1`] = `
+exports[`Input: match snapshot 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        data-testid="button-container"
+        class="sc-bczRLJ ifSJaK"
+        data-testid="input-container"
       >
-        <button
-          class="sc-bczRLJ kwjPJc"
-          data-testid="button"
-        >
-          save
-        </button>
+        <input
+          class="sc-gsnTZi iIYzMI"
+          data-testid="input"
+          value=""
+        />
       </div>
     </div>
   </body>,
   "container": <div>
     <div
-      data-testid="button-container"
+      class="sc-bczRLJ ifSJaK"
+      data-testid="input-container"
     >
-      <button
-        class="sc-bczRLJ kwjPJc"
-        data-testid="button"
-      >
-        save
-      </button>
+      <input
+        class="sc-gsnTZi iIYzMI"
+        data-testid="input"
+        value=""
+      />
     </div>
   </div>,
   "debug": [Function],
