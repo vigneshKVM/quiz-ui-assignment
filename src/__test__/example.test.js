@@ -2,8 +2,10 @@ import React from "react";
 import { cleanup, render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-// Components
-import { sum } from "../test";
+
+const sum = (a, b) => {
+  return a + b;
+}
 
 beforeAll(() => console.log("1 - beforeAll"));
 afterAll(() => console.log("1 - afterAll"));

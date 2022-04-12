@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import renderer from "react-test-renderer";
 import configureMockStore from 'redux-mock-store';
@@ -12,11 +12,12 @@ const mockStore = configureMockStore([]);
 afterEach(cleanup);
 
 test("Button: renders Correctly", () => {
-  const { getByTestId } = render(
+  const { getByTestId, getByRole } = screen;
+  render(
     <Button onClick={() => console.log("clicked")}>save</Button>
   );
   const buttonContainer = getByTestId("button-container");
-  const customButton = getByTestId("button");
+  const customButton = getByRole("button");
   expect(customButton.textContent).toBe("save");
   expect(buttonContainer).toContainElement(customButton);
 });

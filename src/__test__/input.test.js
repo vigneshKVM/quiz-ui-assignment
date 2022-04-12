@@ -1,5 +1,6 @@
 import React from "react";
 import { cleanup, fireEvent, render } from "@testing-library/react";
+import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
 
 import Input from "../components/input/Input";
@@ -24,7 +25,8 @@ test("Input: Change Input Value", () => {
   expect(customInput.value).toBe("ddd");
 });
 
-// test("Input: match snapshot", () => {
-//   const snapshot = render(<Input />);
-//   expect(snapshot).toMatchSnapshot();
-// });
+test("Input: match snapshot", () => {
+  // const snapshot = renderer.create(<Input />).toJSON();
+  const snapshot = render(<Input />);
+  expect(snapshot).toMatchSnapshot();
+});
