@@ -1,16 +1,26 @@
 import React from "react";
-import { cleanup, render } from "@testing-library/react";
+import { cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
-
 
 const sum = (a, b) => {
   return a + b;
+};
+
+function timerGame(callback) {
+  console.log("Ready....go!");
+  setTimeout(() => {
+    console.log("Time's up -- stop!");
+    callback && callback();
+  }, 1000);
 }
+
+const mockFunc = jest.fn();
 
 beforeAll(() => console.log("1 - beforeAll"));
 afterAll(() => console.log("1 - afterAll"));
 beforeEach(() => console.log("1 - beforeEach"));
 afterEach(() => {
+  jest.useRealTimers();
   console.log("1 - afterEach");
   return cleanup;
 });
@@ -133,3 +143,20 @@ test("compiling android goes as expected", () => {
 
 //   fetchData(callback);
 // });
+
+test("Testing Mock Function", () => {
+  mockFunc();
+  expect(mockFunc.mock.instances.length).toBe(1);
+});
+
+it("Testing Mock Timer", () => {
+  const callback = jest.fn();
+  jest.useFakeTimers();
+  jest.spyOn(global, 'setTimeout');
+  timerGame(callback);
+
+  jest.runOnlyPendingTimers();
+  expect(callback).toBeCalled();
+
+  expect(setTimeout).toHaveBeenCalledTimes(1);
+});
